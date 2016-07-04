@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#define WIDTH 30
+#define HEIGHT 30
+#define NUM WIDTH * HEIGHT
 
 class ofApp : public ofBaseApp{
 
@@ -21,7 +24,21 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-    ofMesh mesh;
-    ofVec3f point[1000];
+    ofVboMesh mesh;
+    ofVec3f point[NUM];
     ofLight light;
+    ofEasyCam cam;
+    const float scale = 400;
+    float xNoise, yNoise, zNoise;
+    
+    ofVec3f center;
+    ofShader sineShader, noiseShader;
+    
+    int shaderToApply; // 0 - none, 1 - sine, 2 - noise
+    
+    int waveDirection, waveFrequency;
+    float noiseAmount;
+    
+    ofFbo fbo;
+    ofImage image;
 };
