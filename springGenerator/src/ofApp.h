@@ -33,12 +33,13 @@ class ofApp : public ofBaseApp{
     
     ofVec3f center;
     ofShader sineShader, noiseShader;
-    
-    int shaderToApply; // 0 - none, 1 - sine, 2 - noise
-    
     int waveDirection, waveFrequency;
     float noiseAmount;
     
     ofFbo fbo;
     ofImage image;
+    ofVec2f grid, space;
+    ofPixels pixels;
+    
+    bool loop;
 };
