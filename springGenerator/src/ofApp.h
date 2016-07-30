@@ -1,45 +1,30 @@
 #pragma once
 
 #include "ofMain.h"
-#define WIDTH 30
-#define HEIGHT 30
-#define NUM WIDTH * HEIGHT
+#include "ofxCv.h"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
-
-	public:
-		void setup();
-		void update();
-		void draw();
-
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-		
-    ofVboMesh mesh;
-    ofVec3f point[NUM];
-    ofLight light;
-    ofEasyCam cam;
-    const float scale = 400;
-    float xNoise, yNoise, zNoise;
+public:
+    void setup();
+    void update();
+    void draw();
+    void keyPressed(int key);
     
-    ofVec3f center;
-    ofShader sineShader, noiseShader;
-    int waveDirection, waveFrequency;
-    float noiseAmount;
+    ofVideoGrabber camera;
     
-    ofFbo fbo;
-    ofImage image;
-    ofVec2f grid, space;
-    ofPixels pixels;
+    ofxCv::FlowFarneback fb;
+    ofxCv::FlowPyrLK lk;
     
-    bool loop;
+    ofxCv::Flow* curFlow;
+    
+    ofxPanel gui;
+    ofParameter<float> fbPyrScale, lkQualityLevel, fbPolySigma;
+    ofParameter<int> fbLevels, lkWinSize, fbIterations, fbPolyN, fbWinSize, lkMaxLevel, lkMaxFeatures, lkMinDistance;
+    ofParameter<bool> fbUseGaussian, usefb;
+    
+    vector<ofVec2f> motion;
+    ofImage lastImage, currentImage;
+    bool calc;
 };
+
